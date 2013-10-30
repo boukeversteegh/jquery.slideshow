@@ -4,7 +4,7 @@ Jquery Slideshow
 How to use:
 
 ```html
-<div id="slideshow">
+<div id="myslideshow">
     <div class="slide-controls">
         <span class="btn-prev">Previous</span>
         <span class="btn">1</span>
@@ -23,7 +23,7 @@ How to use:
 ```
 
 ```css
-.slideshow {
+#myslideshow {
     height:   100px;
     width:    300px;
     border:   1px solid red;
@@ -35,5 +35,18 @@ How to use:
 
 
 ```javascript
-$('#slideshow').slideshow();
+$('#myslideshow').slideshow();
 ```
+
+Options
+-------
+
+ *  <code>**direction**</code> (default: <code>horizontal</code>)  
+    Type: *String*  
+    Direction the slides will move. 
+   *  <code>horizontal</code>  
+   *  <code>vertical</code>
+ *  <code>**duration**</code> (default: <code>200</code>)  
+    Type: *Number*  
+    Duration of slide animation.
+
