@@ -27,7 +27,6 @@ How to use:
     height:   100px;
     width:    300px;
     border:   1px solid red;
-    position: relative
 }
 .slide-controls .active {
     color: red;
