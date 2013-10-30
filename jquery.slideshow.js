@@ -1,5 +1,10 @@
 (function($) {
-    $.fn.slideshow = function() {
+    $.fn.slideshow = function(options) {
+
+        var settings = $.extend({
+            duration:   200,
+            direction:  'horizontal'
+        }, options );
 
         /* Slides */
         
@@ -9,27 +14,42 @@
         this.addClass('slideshow').css({
             'position':    'relative'
         }).find('.slides').css({
-            'white-space': 'nowrap',
-            'font-size':   0,
             'overflow':    'hidden'
         }).find('.slide').css({
-            'display':     'inline-block',
-            'font-size':   fontsize,
-            'width':       '100%',
-            'white-space': 'normal',
-            'vertical-align': 'top'
+            
         });
+
         this.find('.slide-controls').find('.btn, .btn-next, .btn-prev').css({
             'cursor':     'pointer'
         });
-            
+        
+        if( settings.direction == 'horizontal' ) {
+            this.find('.slides').css({
+                'white-space': 'nowrap',
+                'font-size':   0
+            }).find('.slide').css({
+                'display':     'inline-block',
+                'font-size':   fontsize,
+                'width':       '100%',
+                'white-space': 'normal',
+                'vertical-align': 'top'
+            })
+        } else {
+            this.css({
+                'overflow':     'hidden'
+            }).find('.slides').css({
+                'position':     'relative',
+                'height':       '100%'
+            }).find('.slide').css({
+                'display':      'block',
+                'height':       '100%'
+            });
+        }
 
         var showslide = function($slideshow, index, animate) {
-            //console.log($(this));
-            //var $slideshow = $(this);
             
             var $slides = $slideshow.children('.slides');
-            animate = (animate===undefined ? true: animate);
+            animate = (animate === undefined ? true: animate);
             if( index < 0 ) {
                 return false;
             }
@@ -37,15 +57,14 @@
                 return false;
             }
             
-            var duration = (animate ? 200 : 0);
+            var duration = (animate ? settings.duration : 0);
             
             var $slide  = $slides.find('> .slide').eq(index);
             var $btn    = $slideshow.find('> .slide-controls > .btn').eq(index);
             
-            var horizontal = !$slideshow.is('.slideshow-v');
             var offset = null;
             
-            if( horizontal ) {
+            if( settings.direction == 'horizontal' ) {
                 var left= $slides.scrollLeft();
                 offset  = $slide.position().left;
                 var scroll = offset+left;
