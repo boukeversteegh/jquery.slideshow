@@ -1,3 +1,12 @@
+/*
+ * @fileOverview Slideshow - jQuery Plugin
+ * @version 1.0
+ *
+ * @author Bouke Versteegh http://www.github.com/boukeversteegh
+ * @see https://www.github.com/boukeversteegh/jquery.slideshow
+ *
+ * Licence: GPL Version 2
+ */
 (function($) {
     $.fn.slideshow = function(options) {
 
@@ -5,8 +14,6 @@
             duration:   200,
             direction:  'horizontal'
         }, options );
-
-        /* Slides */
         
         var fontsize = this.find('.slide').css('font-size');
         fontsize = fontsize ? fontsize : 'inherit';
