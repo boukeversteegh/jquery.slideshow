@@ -18,8 +18,14 @@
         var fontsize = this.find('.slide').css('font-size');
         fontsize = fontsize ? fontsize : 'inherit';
         
+        var position = $(this).css('position');
+
+        // Slideshow css-position must be relative or absolute
+        if( !$.inArray(position, ['relative', 'absolute']) ) {
+            position = 'relative';
+        }
         this.addClass('slideshow').css({
-            'position':    'relative'
+            'position':    position
         }).find('.slides').css({
             'overflow':    'hidden'
         }).find('.slide').css({
