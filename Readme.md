@@ -50,3 +50,19 @@ Options
     Type: *Number*  
     Duration of slide animation.
 
+Methods
+-------
+
+ * <code>**showslide(index, [duration])**</code>  
+   *  <code>index</code>  
+      Index of the slide to show
+   *  <code>duration</code> (default: <code>options.duration</code>, <code>200</code>)  
+      Type: *Number*  
+      Duration of slide animation  
+      Type: *Bool* (<code>false</code>)  
+      No animation
+
+```javascript
+// Show second slide of #myslideshow
+$('#myslideshow').slideshow('showslide', 1);
+```
