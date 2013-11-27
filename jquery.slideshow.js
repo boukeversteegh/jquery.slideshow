@@ -104,6 +104,7 @@
          * @param {number} animate Slide animation duration. False or 0 for no animation.
          */
         showslide: function(index, animate) {
+			index = ( typeof index != 'undefined' ) ? index : 0;
             $(this).each(function() {
                 var $slideshow = $(this);
                 var $slides = $slideshow.children('.slides');
