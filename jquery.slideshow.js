@@ -95,20 +95,26 @@
                 }
 
                 // Bind slide-controls buttons directly under current slideshow
-                $(selectors.controls, $slideshow).find(selectors.button).click(function() {
+                $(selectors.controls, $slideshow).find(selectors.button).on('touchstart click', function(e) {
                     var controls_selector = selectors.controls.match('(.*[>\\s])?(.+)').pop();
                     var index = $(this).closest(controls_selector).find('> .btn').index(this);
                     methods.showslide.apply($slideshow, [index]);
+                    
+                    if( e.type == 'touchstart' ) {
+                        e.stopPropagation();
+                    }
                 });
 
-                $(selectors.controls, $slideshow).find([selectors.prev, selectors.next].join(',')).click(function() {
+                $(selectors.controls, $slideshow).find([selectors.prev, selectors.next].join(',')).on('touchstart click', function(e) {
                     var index = $slideshow.data('index');
-
                     if( index === undefined ) {
                         index = 0;
                     }
                     var delta = $(this).is(settings.selectors.prev) ? -1 : 1;
                     methods.showslide.apply($slideshow, [index + delta]);
+                    if( e.type == 'touchstart' ) {
+                        e.stopPropagation();
+                    }
                 });
             });
             
