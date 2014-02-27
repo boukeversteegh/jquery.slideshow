@@ -15,7 +15,7 @@
         direction:  'horizontal',
         auto:      false,
         loop:      false,
-        interval:  1000,
+        interval:  5000,
         selectors: {
             slides:     '> .slides',
             slide:      '> .slide',
