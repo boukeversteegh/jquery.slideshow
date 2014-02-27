@@ -247,12 +247,13 @@
             });
         },
         option: function(key, value) {
-            if( !value ) {
+            if( typeof value == 'undefined' ) {
                 return $(this).eq(0).data('settings')[key];
             } else {
                 $(this).each(function() {
                     $(this).data('settings')[key] = value;
                 });
+                return $(this);
             }
         }
     };
@@ -263,6 +264,6 @@
             return methods.init.apply(this, arguments);
         } else {
             $.error( '"' + method_options + '" is not a method of jquery.slideshow');
-        } 
+        }
     };
 })(jQuery);
