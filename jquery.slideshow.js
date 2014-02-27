@@ -218,11 +218,11 @@
                     (function($slideshow) { return function() {
                         $slideshow.slideshow('pause');
                     }})($slideshow),
-                    (function($slideshow) { return function() {
+                    (function($slideshow, settings) { return function() {
                         if( settings.autoplay ) {
                             $slideshow.slideshow('play');
                         }
-                    }})($slideshow)
+                    }})($slideshow, settings)
                 );
             });
         },
