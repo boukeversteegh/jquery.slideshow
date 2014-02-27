@@ -212,17 +212,16 @@
             $(this).each(function() {
                 var $slideshow = $(this);
                 $slideshow.slideshow('play');
-                var settings = $slideshow.data('settings');
 
                 $slideshow.hover(
-                    (function($slideshow) { return function() {
-                        $slideshow.slideshow('pause');
-                    }})($slideshow),
-                    (function($slideshow, settings) { return function() {
-                        if( settings.autoplay ) {
-                            $slideshow.slideshow('play');
+                    function() {
+                        $(this).slideshow('pause');
+                    },
+                    function() {
+                        if( $(this).data('settings').loop ) {
+                            $(this).slideshow('play');
                         }
-                    }})($slideshow, settings)
+                    }
                 );
             });
         },
