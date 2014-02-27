@@ -213,16 +213,16 @@
                 var $slideshow = $(this);
                 $slideshow.slideshow('play');
                 var settings = $slideshow.data('settings');
-                
+
                 $slideshow.hover(
-                    function() {
+                    (function($slideshow) { return function() {
                         $slideshow.slideshow('pause');
-                    },
-                    function() {
+                    }})($slideshow),
+                    (function($slideshow) { return function() {
                         if( settings.autoplay ) {
                             $slideshow.slideshow('play');
                         }
-                    }
+                    }})($slideshow)
                 );
             });
         },
