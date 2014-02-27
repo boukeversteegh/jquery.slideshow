@@ -1,0 +1,46 @@
+<html>
+<head>
+	<script src="jquery.min.js"></script>
+	<script src="jquery.slideshow.js"></script>
+
+	<style>
+		.slideshow {
+			width: 200px;
+			height: 100px;
+			border: thin solid black;
+		}
+		.btn-prev {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+		}
+		.btn-next {
+			position: absolute;
+			bottom: 0;
+			right: 0;
+		}
+	</style>
+</head>
+<body>
+	<div id="slideshow1">
+		<div class="slide-controls">
+			<div class="btn-prev">Prev</div>
+			<div class="btn-next">Next</div>
+		</div>
+		<div class="slides">
+			<div class="slide">First slide</div>
+			<div class="slide">Second slide</div>
+			<div class="slide">Third slide</div>
+			<div class="slide">Fourth slide</div>
+		</div>
+	</div>
+	<script>
+		$('#slideshow1').slideshow({
+			loop: true,
+			autoplay: true,
+			// duration: 0,
+			direction: 'vertical'
+		});
+	</script>
+</body>
+</html>

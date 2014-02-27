@@ -13,6 +13,9 @@
     var defaults = {
         duration:   200,
         direction:  'horizontal',
+        auto:      false,
+        loop:      false,
+        interval:  1000,
         selectors: {
             slides:     '> .slides',
             slide:      '> .slide',
@@ -106,16 +109,20 @@
                 });
 
                 $(selectors.controls, $slideshow).find([selectors.prev, selectors.next].join(',')).on('touchstart click', function(e) {
-                    var index = $slideshow.data('index');
-                    if( index === undefined ) {
-                        index = 0;
+                    if( $(this).is(settings.selectors.prev) ) {
+                        $slideshow.slideshow('previous');
+                    } else {
+                        $slideshow.slideshow('next');
                     }
-                    var delta = $(this).is(settings.selectors.prev) ? -1 : 1;
-                    methods.showslide.apply($slideshow, [index + delta]);
                     if( e.type == 'touchstart' ) {
                         e.stopPropagation();
                     }
                 });
+
+                // Autoplay
+                if( settings.autoplay ) {
+                    $slideshow.slideshow('autoplay');
+                }
             });
             
 
@@ -168,6 +175,76 @@
                 $slideshow.data('index', index);
             })
             
+        },
+        /**
+         * Jump to slide
+         * @param {number} delta Number of slides to jump forward. 1 is next, -1 previous.
+         */
+        jump: function(delta) {
+            $(this).each(function() {
+                var $slideshow = $(this);
+                var index = $slideshow.data('index');
+                if( index === undefined ) {
+                    index = 0;
+                }
+                var settings = $slideshow.data('settings');
+                var target = index+delta;
+                var slidecount = $slideshow.find(settings.selectors.slides).children().length;
+                if( settings.loop ) {
+                    target = (target + slidecount) % slidecount; 
+                }
+                $slideshow.slideshow('showslide', target);
+            });
+        },
+        /**
+         * Jump to next slide
+         */
+        next: function() {
+            $(this).slideshow('jump', 1);
+        },
+        /**
+         * Jump to previous slide
+         */
+        previous: function() {
+            $(this).slideshow('jump', -1);
+        },
+        autoplay: function() {
+            $(this).each(function() {
+                var $slideshow = $(this);
+                $slideshow.slideshow('play');
+                var settings = $slideshow.data('settings');
+                
+                $slideshow.hover(
+                    function() {
+                        $slideshow.slideshow('pause');
+                    },
+                    function() {
+                        if( settings.autoplay ) {
+                            $slideshow.slideshow('play');
+                        }
+                    }
+                );
+            });
+        },
+        play: function() {
+            $(this).each(function() {
+                var $slideshow = $(this);
+                var settings = $slideshow.data('settings');
+                var timer = window.setInterval(
+                    function() {
+                        $slideshow.slideshow('next');
+                    },
+                    settings.interval
+                );
+                $slideshow.data('timer', timer);
+            });
+        },
+        pause: function() {
+            $(this).each(function() {
+                var $slideshow = $(this);
+                var timer = $slideshow.data('timer');
+                window.clearInterval(timer);
+            });
         },
         option: function(key, value) {
             if( !value ) {
