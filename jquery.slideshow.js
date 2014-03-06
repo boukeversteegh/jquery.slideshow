@@ -105,10 +105,12 @@
                     
                     if( e.type == 'touchstart' ) {
                         e.stopPropagation();
+                        return false;
                     }
                 });
 
-                $(selectors.controls, $slideshow).find([selectors.prev, selectors.next].join(',')).on('touchstart click', function(e) {
+                var $prevnext = $(selectors.controls, $slideshow).find([selectors.prev, selectors.next].join(','));
+                $prevnext.on('touchstart click', function(e) {
                     if( $(this).is(settings.selectors.prev) ) {
                         $slideshow.slideshow('previous');
                     } else {
@@ -116,6 +118,7 @@
                     }
                     if( e.type == 'touchstart' ) {
                         e.stopPropagation();
+                        return false;
                     }
                 });
 
@@ -211,18 +214,29 @@
         autoplay: function() {
             $(this).each(function() {
                 var $slideshow = $(this);
-                $slideshow.slideshow('play');
+                var settings = $slideshow.data('settings');
+                
+                var timer = window.setInterval(
+                    function() {
+                        if( !settings.interupt ) {
+                            $slideshow.slideshow('next');
+                        }
+                    },
+                    settings.interval
+                );
+                $slideshow.data('timer', timer);
 
                 $slideshow.hover(
                     function() {
-                        $(this).slideshow('pause');
+                        $(this).slideshow('option', 'interupt', true);
                     },
                     function() {
-                        if( $(this).data('settings').loop ) {
-                            $(this).slideshow('play');
-                        }
+                        $(this).slideshow('option', 'interupt', false);
                     }
                 );
+                $slideshow.bind('touchstart', function() {
+                    $(this).slideshow('option', 'interupt', true);
+                });
             });
         },
         play: function() {

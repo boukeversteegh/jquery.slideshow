@@ -13,11 +13,13 @@
 			position: absolute;
 			bottom: 0;
 			left: 0;
+			z-index: 2;
 		}
 		.btn-next {
 			position: absolute;
 			bottom: 0;
 			right: 0;
+			z-index: 2;
 		}
 	</style>
 </head>
@@ -34,13 +36,37 @@
 			<div class="slide">Fourth slide</div>
 		</div>
 	</div>
+	<div id="slideshow2">
+		<div class="slide-controls">
+			<div class="btn-prev">Prev</div>
+			<div class="btn-next">Next</div>
+		</div>
+		<div class="slides">
+			<div class="slide">First slide</div>
+			<div class="slide">Second slide</div>
+			<div class="slide">Third slide</div>
+			<div class="slide">Fourth slide</div>
+		</div>
+	</div>
+	<div id="slideshow3">
+		<div class="slide-controls">
+			<div class="btn-prev">Prev</div>
+			<div class="btn-next">Next</div>
+		</div>
+		<div class="slides">
+			<div class="slide">First slide</div>
+			<div class="slide">Second slide</div>
+			<div class="slide">Third slide</div>
+			<div class="slide">Fourth slide</div>
+		</div>
+	</div>
 	<script>
-		$('#slideshow1').slideshow({
-			loop: true,
-			autoplay: true,
-			// duration: 0,
+		$('#slideshow1, #slideshow2').slideshow({
+			interval: 1000,
 			direction: 'vertical'
 		});
+		$('#slideshow3').slideshow();
+		$('#slideshow1, #slideshow2').slideshow('option', 'loop', true).slideshow('autoplay');
 	</script>
 </body>
 </html>
